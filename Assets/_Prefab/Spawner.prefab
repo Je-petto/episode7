@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3795617212878727018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4293027006233497021}
+  - component: {fileID: 4946293760899742193}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4293027006233497021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795617212878727018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4946293760899742193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795617212878727018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b637b835088ac46b931c58795f5a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _t0: 0
+  _l0: 0
+  propRoot: {fileID: 0}
+  prefabs:
+  - {fileID: 134936, guid: d6defc9f29cee9c48bc86531fa36a185, type: 3}
+  - {fileID: 109350, guid: 7c82e2101116ff9488e1fb701f95d141, type: 3}
+  - {fileID: 114134, guid: e0a09c6a82dec5a469288b539b4b3a16, type: 3}
+  - {fileID: 126178, guid: 976f65eee2a300f45918c435030e8e05, type: 3}
+  - {fileID: 157120, guid: a031d2222404a1f4fa50d629889f82da, type: 3}
+  - {fileID: 172218, guid: 5f6e493aac04b2c4a9740e2c41e99d86, type: 3}
+  - {fileID: 161856, guid: 17434cfa8a68bbb469f2995f3731e66e, type: 3}
+  - {fileID: 114440, guid: 9ede5aa653d2320408b79a124bd384af, type: 3}
+  - {fileID: 186498, guid: b138500de16c31245bb2268c271447eb, type: 3}
+  - {fileID: 160914, guid: 476f14cb28257c14ab90ce8543b8e765, type: 3}
+  - {fileID: 106722, guid: cef619cdd7665374e88f34fda9bede80, type: 3}
+  - {fileID: 125994, guid: ab07ff15aeb50dc44a0b234592e0655e, type: 3}
+  - {fileID: 125994, guid: 45e99c5ecba34094ca14b6f3a31b2c11, type: 3}
+  - {fileID: 170750, guid: af145b4d5b8475b49b5b9fe9417fa4d4, type: 3}
+  - {fileID: 170750, guid: d52d9e4cf2388734abdfdd98972b8aa3, type: 3}
+  - {fileID: 145782, guid: 557727f19b2809e4f92af62caf92324c, type: 3}
+  - {fileID: 145782, guid: 5db3af71ebeafd3448ad9490825723ed, type: 3}
+  - {fileID: 183478, guid: 3194a0b9819d7af42abdad292a7a1d2e, type: 3}
+  - {fileID: 183478, guid: dba13d54712e2bc49a0892514f7c35f5, type: 3}
+  - {fileID: 110242, guid: 10d2a524110899248b50d8f3a4165417, type: 3}
+  - {fileID: 110242, guid: a00ff0bdd222d5345962fc2aa02b7d9a, type: 3}
+  _l1: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  gizmosColor: {r: 0.96420634, g: 1, b: 0, a: 1}
+  radius: 69
+  maxNumByRange: {x: 33.754105, y: 574.1507}
+  _l2: 0
+  rotateXaxis: {x: -10, y: 10}
+  rotateYaxis: {x: -180, y: 180}
+  rotateZaxis: {x: -10, y: 10}
+  _l3: 0
+  scalerange: {x: 0.84426224, y: 1.704918}
+  _l4: 0
+  _b0: 0
+  _b1: 0
+  _b2: 0
+  _s1: 0

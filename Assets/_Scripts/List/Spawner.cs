@@ -16,6 +16,7 @@ public class Spawner : MonoBehaviour
 
     
     [SerializeField] LayerMask layerMask;
+    [SerializeField] Color gizmosColor = Color.white;
     [SerializeField, Range(1f,200f)] float radius; //반지름 -> 왜 Range? [SerializeField] float radius;
     //int : -21억 ~ 21억
     //uint ; 0 ~ 42억
@@ -28,12 +29,12 @@ public class Spawner : MonoBehaviour
     [SerializeField, AsRange(-90f, 90f)] Vector2 rotateZaxis; // Z축 회전 범위
 
     [Space(10), HorizontalLine("크기속성", color: FixedColor.CherryRed), HideField] public bool _l3;
-    [SerializeField, AsRange(0.5f, 2f)] Vector2 scalerange; //크기 범위 설정
+    [SerializeField, AsRange(0.5f, 10f)] Vector2 scalerange; //크기 범위 설정
 
     //에디터에서 기즈모를 그릴 수 있는 공간(예약함수)
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        Gizmos.color = gizmosColor;
 
         //해당 transform은 script가 연결된 Gameobject 자체의 transform이 된다
         Gizmos.DrawWireSphere(transform.position, radius);

@@ -8,11 +8,13 @@ public class TilemapGenerator : MonoBehaviour
     [Header("하이트맵 소스")]
     [SerializeField] Texture2D heightmap;
     [SerializeField] List<GameObject> tilePrefab;// 지형 프리팹
-    [SerializeField] GameObject tileBasePrefab; 
 
 
     [Header("하이트맵 속성")]
-    [SerializeField, Range(1f, 200f)] float heightRange;
+
+    [SerializeField] LayerMask layerGround; // 그라운드 레이어
+    [SerializeField, Range(1f, 200f)] float heightRange; // 블럭의 높이 간격
+    [SerializeField, Range(0f, 10f)] float gapRange; // 블럭 간의 넓이 간격
 
 
     [Space(10), HorizontalLine("버튼"), HideField] public bool _l1;
@@ -22,6 +24,9 @@ public class TilemapGenerator : MonoBehaviour
     {
         float w = heightmap.width;    // Horizontal
         float h = heightmap.height;   // Vertical
+        GameObject tileRoot = new GameObject($"Tiles_");
+        tileRoot.isStatic = true;
+
 
         // width , height 를 콘솔에 출력한다.
         Debug.Log($"Width = {w}, Height = {h}");
@@ -32,9 +37,9 @@ public class TilemapGenerator : MonoBehaviour
 
         for (int x = 0; x < w; x++)
         {
-            for (int y = 0; y < h; y++)
+            for (int z = 0; z < h; z++)
             {
-                Color col = heightmap.GetPixel(x, y);
+                Color col = heightmap.GetPixel(x, z);
                 //Debug.Log($"컬러 r = {col}");
                 Debug.Log($"컬러 g = {col.g}");
             }
@@ -59,8 +64,10 @@ public class TilemapGenerator : MonoBehaviour
 
         float w = heightmap.width;    // Horizontal
         float h = heightmap.height;   // Vertical
-        GameObject Empty = new GameObject("TileGroup");
-
+        GameObject tileRoot = new GameObject("TileGroup");
+        tileRoot.isStatic = true;
+        //static을 통해 객체들의 플레이값을 감소시킴
+        // tileRoot.layer = layerGround // 적용안됨
         
 
         // GameObject clone = Instantiate(tilePrefab[rndcnt]);
@@ -80,17 +87,14 @@ public class TilemapGenerator : MonoBehaviour
                 // 컬러의 r채널을 높이값으로 활용 * heightRange 로 값을 증폭 (더 극명하게 보여주기 위해)
                 float y = col.r * heightRange;
 
-                GameObject contour = Instantiate(tilePrefab[rndcnt], new Vector3(x, y, z), Quaternion.identity);
-                contour.transform.SetParent(Empty.transform);
+                Vector3 pos = new Vector3(x*gapRange, y, z*gapRange);
+
+                GameObject contour = Instantiate(tilePrefab[rndcnt], pos, Quaternion.identity);
+                contour.isStatic = true;
+                contour.layer = layerGround;
+                contour.transform.SetParent(tileRoot.transform);
 
 
-
-                if (col.g != 0.0f)
-                {
-                    // Green 채널만 활용 : 나무를 심는다
-                    GameObject trees = Instantiate(tileBasePrefab, new Vector3(x, y, z), Quaternion.identity);
-                    trees.transform.SetParent(Empty.transform);
-                }
             }
         }
     }
