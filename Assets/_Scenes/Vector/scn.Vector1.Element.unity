@@ -149,12 +149,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   from: {x: 0, y: 0, z: 0}
-  to: {x: 2, y: 1, z: 1}
-  magnitude: 2.4494898
-  force: 2
-  vA: {x: 1, y: 0, z: 1}
-  vB: {x: 0, y: 0, z: 1}
-  AaddB: {x: 1, y: 0, z: 2}
+  to: {x: 0, y: 0, z: 0}
+  magnitude: 0
+  force: 0
+  vA: {x: 1, y: 0, z: 0}
+  vB: {x: 0, y: 0, z: 0.61}
+  AaddB: {x: 0.8537036, y: 0, z: 0.5207592}
   AminusB: {x: 1, y: 0, z: 0}
   AmulForce: {x: 2, y: 0, z: 2}
   AmulForceNormal: {x: 0.70710677, y: 0, z: 0.70710677}

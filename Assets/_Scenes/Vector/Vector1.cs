@@ -76,25 +76,27 @@ public class Vector1 : MonoBehaviour
         Gizmos.DrawRay(Vector3.zero, vB);
 
         //벡터 간 덧셈 : 가능
-        AaddB = vA + vB;
+        // 구해질 값에 normalized를 곱해 일정화 - 오브젝트 전용 속도를 곱해 오브젝트 간 차이점 연출
+        AaddB = (vA + vB).normalized;
         Gizmos.color = new Color(1f, 1f, 0f);
         Gizmos.DrawRay(Vector3.zero, AaddB);
 
-        //벡터 간 뺄샘 : 가능
-        //다른 벡터로부터 상대적 위치이동을 의미함
-        AminusB = vA - vB;
-        Gizmos.color = new Color(0f, 1f, 0f);
-        Gizmos.DrawRay(Vector3.zero, AminusB);
+        // //벡터 간 뺄샘 : 가능
+        // //다른 벡터로부터 상대적 위치이동을 의미함
+        // AminusB = vA - vB;
+        // Gizmos.color = new Color(0f, 1f, 0f);
+        // Gizmos.DrawRay(Vector3.zero, AminusB);
 
-        // 벡터 간 곱셈, 나눗셈 불가능
+        // // 벡터 간 곱셈, 나눗셈 불가능
 
-        AmulForce = vA * force;
-        Gizmos.color = new Color(1f, 0f, 1f);
-        Gizmos.DrawRay(Vector3.zero, AmulForce);
+        // AmulForce = vA * force;
+        // Gizmos.color = new Color(1f, 0f, 1f);
+        // Gizmos.DrawRay(Vector3.zero, AmulForce);
 
-        // 벡터의 정규화(Normalize) = -1 ~ 1 사이 값으로 만들어준다 => 방향을 알려주는데 사용한다
-        AmulForceNormal = AmulForce.normalized;
-        Gizmos.color = new Color(0f, 0f, 0f);
-        Gizmos.DrawRay(Vector3.zero, AmulForceNormal);
+        // // 벡터의 정규화(Normalize) = -1 ~ 1 사이 값으로 만들어준다 => 방향을 알려주는데 사용한다
+        // // Normalized Vector => 단위 벡터 => -1 ~ 1 => 방향 O, 힘 X
+        // AmulForceNormal = AmulForce.normalized;
+        // Gizmos.color = new Color(0f, 0f, 0f);
+        // Gizmos.DrawRay(Vector3.zero, AmulForceNormal);
     }
 }
