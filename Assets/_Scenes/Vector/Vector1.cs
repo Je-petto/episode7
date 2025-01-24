@@ -75,10 +75,13 @@ public class Vector1 : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(Vector3.zero, vB);
 
+        //벡터 간 덧셈 : 가능
         AaddB = vA + vB;
         Gizmos.color = new Color(1f, 1f, 0f);
         Gizmos.DrawRay(Vector3.zero, AaddB);
 
+        //벡터 간 뺄샘 : 가능
+        //다른 벡터로부터 상대적 위치이동을 의미함
         AminusB = vA - vB;
         Gizmos.color = new Color(0f, 1f, 0f);
         Gizmos.DrawRay(Vector3.zero, AminusB);

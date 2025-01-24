@@ -15,7 +15,7 @@ public class Vector2Movement : MonoBehaviour
 
     void Update()
     {
-        
+
         // 버튼 누르면 : 참 => 실행
         // 버튼 안 누르면 : 거짓 => 미실행  
 
@@ -34,11 +34,11 @@ public class Vector2Movement : MonoBehaviour
 
         // -1 ~ 1의 값이 나옴(방향을 활용 - Normalize와 연관성이 높음)
         float horz = Input.GetAxis("Horizontal");//W-S
-            Debug.Log($"Horizontal = {horz}");
-        
+        Debug.Log($"Horizontal = {horz}");
+
         float vert = Input.GetAxis("Vertical");//A-D
-            Debug.Log($"Vertical = {vert}");
-        
+        Debug.Log($"Vertical = {vert}");
+
         //GameObject의 transform으로 오브젝트 조종
         // movement = new Vector2(horz, vert)
 
@@ -55,7 +55,7 @@ public class Vector2Movement : MonoBehaviour
         //Time.deltaTime -> 결과값을 어느 사양에서든 동일하게 만들어준다
         transform.Rotate(0f, horz * Time.deltaTime * rotatespeed, 0f);
 
-        transform.Translate(/*horz * Time.deltaTime * movespeed*/0f, 0f , vert * Time.deltaTime * movespeed);
+        transform.Translate(/*horz * Time.deltaTime * movespeed*/0f, 0f, vert * Time.deltaTime * movespeed);
 
 
 
