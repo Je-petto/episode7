@@ -7,15 +7,19 @@ public class QuaternionMovement : MonoBehaviour
     //메인 카메라의 Inspector 내 camera는 transform처럼 component로 활용 가능하다
     [SerializeField] Camera camMain;
 
-    [SerializeField] float movespeed = 10.0f; //이동속도
+    [SerializeField] float moveSpeedx = 10.0f; //이동속도
     [SerializeField] float jumpPower = 5.0f; //이동속도
+    [SerializeField] float jumpMax = 3.0f; // 점프 최대 높이
     [SerializeField] float jumpDuration = 1.0f; //점프지속시간
+
+    [SerializeField] AnimationCurve jumpCurve; // 임의의 커브 곡선을 그리게 하는
     float horz;
     float vert;
     public bool isJumping; // 점프 중인가?
 
     [SerializeField] SquashAndStretchDeformer deform;
 
+    // On이 들어간 함수는 예약함수
     void OnDrawGizmos()
     {
         //Vector3 forward = Vector3.forward * vert;
@@ -38,22 +42,29 @@ public class QuaternionMovement : MonoBehaviour
 
     }
 
-    void Update()
+    //FixedUpdate: 1 frame 당 여러번 호출(정교한 연산을 위해 ex.물리연산)
+    //Update:  1 frame 당 1번 호출(일반적 연산용 ex.렌더링)
+    void FixedUpdate()
     {
-        horz = Input.GetAxis("Horizontal");
-        vert = Input.GetAxis("Vertical");
+        horz = Input.GetAxisRaw("Horizontal");
+        vert = Input.GetAxisRaw("Vertical");
+        // vert = scrollSpeedY; 자동으로 속도 내는 방식
         //Jump = Input.GetButton("Jump");
         //Jump = Input.GetButtonDown("Jump");
-
+    }
+    
+    void Update()
+    {
+        // 캐릭터 설정 시 회전처리부터 먼저 처리하게 하고 이동을 처리하도록 배치해야 함
         //회전 처리
         UpdateRotation();
         //이동 처리
         UpdatePosition();
         //점프 처리
         UpdateJump();
-
-
     }
+
+
 
     // 회전 처리
     void UpdateRotation()
@@ -131,7 +142,7 @@ public class QuaternionMovement : MonoBehaviour
         Vector3 direction = (forward + right).normalized;
 
         //이동처리
-        Vector3 movDir = direction * movespeed * Time.deltaTime;
+        Vector3 movDir = direction * moveSpeedx * Time.deltaTime;
         transform.position += movDir;
 
         //Debug.DrawRay(transform.position, movDir * 100f, Color.blue);
@@ -139,11 +150,12 @@ public class QuaternionMovement : MonoBehaviour
 
     //public float DeltaTime;
     private float jumpStartTime;
+    private float jumpStartY; // 점프하는 시점의 Y 위치
     //private Vector3 jumpStartPosition;
 
     private float jumpChargedTime;
 
-    public float jumpforceCharged = 0.0f;
+    private float jumpforceCharged;
     void UpdateJump()
     {
 
@@ -153,11 +165,12 @@ public class QuaternionMovement : MonoBehaviour
         //점프를 한 번 눌렀을 때 다시 누를 때 점프가 적용이 안되도록 -> Jump를 누루고, 점프 중에는 '거짓'으로 만들기
         // 방법 : if (Input.GetButtonDown("Jump") && isJumping == true)
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isJumping == false )
         {
             jumpChargedTime = Time.time;
 
-            deform.Factor = -0.25f;
+            if(deform != null)
+                deform.Factor = -0.25f;
 
             //jumpStartPosition = transform.position;
         }
@@ -179,10 +192,14 @@ public class QuaternionMovement : MonoBehaviour
             
             jumpStartTime = Time.time;
 
-            jumpforceCharged = jumpStartTime - jumpChargedTime;
-            jumpforceCharged = Mathf.Clamp(jumpforceCharged, 1f, 3f);//Mathf.Clamp = 충전 값의 가능 범위 지정
+            jumpforceCharged = (jumpStartTime - jumpChargedTime) * 3f;
+            jumpforceCharged = Mathf.Clamp(jumpforceCharged, 1f, jumpMax);//Mathf.Clamp = 충전 값의 가능 범위 지정
+            
+            jumpStartY = transform.position.y;
 
-            deform.Factor = 0.25f;
+            if(deform != null)
+                deform.Factor = 0.25f;
+                
             isJumping = true;
             //jumpStartPosition = transform.position;
         }
@@ -196,19 +213,21 @@ public class QuaternionMovement : MonoBehaviour
             {
                 deform.Factor = 1f;
                 
-                float jumpHeight = (percent - percent * percent) * (jumpPower * jumpforceCharged); //점프 높이(표물선 방정식)
+                //float jumpHeight = (percent - percent * percent) * (jumpPower * jumpforceCharged); //점프 높이(표물선 방정식)
 
-                transform.position = new Vector3(transform.position.x, jumpHeight, transform.position.z);
+                float jumpHeight = jumpCurve.Evaluate(percent) * (jumpPower * jumpforceCharged); // jumpCurve 사용 방식 - 임의적으로 점프 방정식 수정 가능
+                transform.position = new Vector3(transform.position.x, jumpStartY + jumpHeight, transform.position.z);
 
             }
 
             else // 포물선을 벗어남(1~)
             {
-                deform.Factor = 0f;
-                
                 isJumping = false;
+                if(deform != null)
+                    deform.Factor = 0f;
+
+                //transform.position = new Vector3(transform.position.x, jumpStartY, transform.position.z);
             }
         }
     }
-
 }

@@ -77,18 +77,21 @@ public class TilemapGenerator : MonoBehaviour
             for (int z = 0; z < h; z++)
             {
                 
-                int rndcnt = Random.Range(0, tilePrefab.Count);
 
                 Color col = heightmap.GetPixel(x, z);
                 // col 범위 ( 최소 : 0.0f ~ 최대 : 1.0f )
 
 
+                if (col.r <= 0f)
+                    continue;
+                
                 // RED 채널만 활용 : 등고선 표현
                 // 컬러의 r채널을 높이값으로 활용 * heightRange 로 값을 증폭 (더 극명하게 보여주기 위해)
                 float y = col.r * heightRange;
 
                 Vector3 pos = new Vector3(x*gapRange, y, z*gapRange);
 
+                int rndcnt = Random.Range(0, tilePrefab.Count);
                 GameObject contour = Instantiate(tilePrefab[rndcnt], pos, Quaternion.identity);
                 contour.isStatic = true;
                 contour.layer = layerGround;
