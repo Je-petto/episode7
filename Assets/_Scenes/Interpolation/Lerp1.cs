@@ -10,6 +10,8 @@ public class Lerp1 : MonoBehaviour
     
     public bool isSlerp;
 
+    // Lerp : Linear Interpolitan
+    
     void Update()
     {
         if(isSlerp == false)
@@ -17,15 +19,18 @@ public class Lerp1 : MonoBehaviour
         else
             MoveSlerp();
     }
-    void MoveSlerp()
-    {
-        t = Mathf.PingPong(Time.time, 1f);
-        transform.position = Vector3.Slerp(A.position, B.position, t);
-    }
     void MoveLerp()
     {
         t = Mathf.PingPong(Time.time, 1f);
         transform.position = Vector3.Lerp(A.position, B.position, t);
 
+    }
+    //곡선의 형태로 돌아감
+    void MoveSlerp()
+    {
+        t = Mathf.PingPong(Time.time, 1f);
+        transform.position = Vector3.Slerp(A.position, B.position, t);
+
+        //Qaternion.RotateTowards()
     }
 }
